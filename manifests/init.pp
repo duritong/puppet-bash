@@ -23,7 +23,7 @@ define bash::deploy_profile(
         $gid    = '0' ){
 
         file {$name:
-                path => $target,
+                path => $destination,
                 owner => $uid,
                 group => $gid,
                 mode => 600,
