@@ -16,7 +16,7 @@ class bash {
         }
 }
 
-bash::deploy_profile( 
+define bash::deploy_profile( 
 	$source, 
 	$destination = '/root/.bash_profile',
 	$uid    = 'root',
