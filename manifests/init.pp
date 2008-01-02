@@ -13,11 +13,7 @@ class bash {
 		                source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/bash-3.2.17.tgz',
         		}
                 }
-                default: {
-                }
         }
-
-
 }
 
 bash::deploy_profile( 
