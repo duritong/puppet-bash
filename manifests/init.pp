@@ -17,10 +17,12 @@ class bash {
 			 package {'gettext':
 				ensure => 'present',
 				source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/gettext-0.14.6p0.tgz',
+				require => Package[libiconv],
 			 }
 			 package { 'bash':
 		                ensure => 'present',
 		                source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/bash-3.2.17.tgz',
+				require => Package[gettext],
         		}
                 }
         }
