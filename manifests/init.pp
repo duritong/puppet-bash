@@ -20,11 +20,7 @@ class bash {
 			 }
 			 package { 'bash':
 		                ensure => 'present',
-		                #source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/bash-3.2.17.tgz',
-		                env => $opratingsystem ? {
-					openbsd => "PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/`uname -r`/packages/`uname -m`",
-					default => undev,
-				}
+		                source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/bash-3.2.17.tgz',
         		}
                 }
         }
