@@ -33,7 +33,7 @@ class bash::centos inherits bash::base {
     package{'bash-completion':
         ensure => present,
     }
-
+    bash::deploy_profile{bash_profile_root: source => 'centos' }
 }
 
 class bash::openbsd inherits bash::base {
@@ -68,6 +68,11 @@ define bash::deploy_profile(
                 owner => $uid,
                 group => $gid,
                 mode => 600,
-                source => "puppet://$server/bash/${source}",
+                source =>   [
+                    "puppet://$server/files/bash/${fqdn}/${source}",
+                    "puppet://$server/files/bash/${source}",
+                    "puppet://$server/bash/module/${source}",
+                    "puppet://$server/bash/${source}"
+                ],
         }
 }
