@@ -40,18 +40,15 @@ class bash::openbsd inherits bash::base {
 
 	package{'libiconv':
 	    ensure => present,
-		source => 'ftp://mirror.switch.ch/pub/OpenBSD/${operatingsystemrelease}/packages/${hardwaremodel}/',
 	}
 
 	package {'gettext':
         ensure => present,
-		source => 'ftp://mirror.switch.ch/pub/OpenBSD/${operatingsystemrelease}/packages/${hardwaremodel}/',
 		require => Package[libiconv],
 	}
 
     Package[bash]{
         ensure => present,
-		source => 'ftp://mirror.switch.ch/pub/OpenBSD/${operatingsystemrelease}/packages/${hardwaremodel}/',
         require => Package[gettext],
     }
     bash::deploy_profile{bash_profile_root: source => 'openbsd' }
