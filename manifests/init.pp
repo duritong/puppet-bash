@@ -12,8 +12,6 @@
 # the Free Software Foundation.
 #
 
-#modules_dir { "bash": }
-
 class bash {
     case $operatingsystem {
         openbsd: { include bash::openbsd }
@@ -30,27 +28,25 @@ class bash::base {
 
 
 class bash::centos inherits bash::base {
-    package{'bash-completion':
+    package{ [ 'bash-completion', 'rootfiles']: 
         ensure => present,
     }
-
+    bash::deploy_profile{bash_profile_root: source => 'centos' }
     include bash::timeout
 }
 
 class bash::openbsd inherits bash::base {
+	package{'libiconv':
+	    ensure => present,
+	}
 
-    package{'libiconv':
-        ensure => 'present',
-        source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/libiconv-1.9.2p3.tgz'
-    }
+	package {'gettext':
+        ensure => present,
+		require => Package[libiconv],
+	}
 
-    package {'gettext':
-        ensure => 'present',
-        source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/gettext-0.14.6p0.tgz',
-        require => Package[libiconv],
-    }
     Package[bash]{
-        source => 'ftp://mirror.switch.ch/pub/OpenBSD/4.2/packages/i386/bash-3.2.17.tgz',
+        ensure => present,
         require => Package[gettext],
     }
     bash::deploy_profile{bash_profile_root: source => 'openbsd' }
@@ -59,15 +55,19 @@ class bash::openbsd inherits bash::base {
 define bash::deploy_profile(
     $source,
     $destination = '/root/.bash_profile',
-    $uid    = 'root',
-        $gid    = '0' ){
+    $uid = root,
+    $gid = 0 ){
 
-        file {$name:
+    file {$name:
                 path => $destination,
                 owner => $uid,
                 group => $gid,
                 mode => 600,
-                source => "puppet://$server/bash/${source}",
+                source =>   [
+                    "puppet://$server/files/bash/${fqdn}/${source}",
+                    "puppet://$server/files/bash/${source}",
+                    "puppet://$server/bash/module/${source}",
+                    "puppet://$server/bash/${source}"
+                ],
         }
 }
-
