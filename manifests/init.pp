@@ -34,6 +34,7 @@ class bash::centos inherits bash::base {
         ensure => present,
     }
 
+    include bash::timeout
 }
 
 class bash::openbsd inherits bash::base {
