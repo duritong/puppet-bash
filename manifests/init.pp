@@ -13,61 +13,9 @@
 #
 
 class bash {
-    case $operatingsystem {
-        openbsd: { include bash::openbsd }
-        centos: { include bash::centos }
-        default: { include bash::base }
-    }
-}
-
-class bash::base {
-    package{bash:
-        ensure => present,
-    }
-}
-
-
-class bash::centos inherits bash::base {
-    package{ [ 'bash-completion', 'rootfiles']: 
-        ensure => present,
-    }
-    bash::deploy_profile{bash_profile_root: source => 'centos' }
-    include bash::timeout
-}
-
-class bash::openbsd inherits bash::base {
-	package{'libiconv':
-	    ensure => present,
-	}
-
-	package {'gettext':
-        ensure => present,
-		require => Package[libiconv],
-	}
-
-    Package[bash]{
-        ensure => present,
-        require => Package[gettext],
-    }
-    bash::deploy_profile{bash_profile_root: source => 'openbsd' }
-}
-
-define bash::deploy_profile(
-    $source,
-    $destination = '/root/.bash_profile',
-    $uid = root,
-    $gid = 0 ){
-
-    file {$name:
-                path => $destination,
-                owner => $uid,
-                group => $gid,
-                mode => 600,
-                source =>   [
-                    "puppet://$server/files/bash/${fqdn}/${source}",
-                    "puppet://$server/files/bash/${source}",
-                    "puppet://$server/bash/module/${source}",
-                    "puppet://$server/bash/${source}"
-                ],
-        }
+  case $operatingsystem {
+    openbsd: { include bash::openbsd }
+    centos: { include bash::centos }
+    default: { include bash::base }
+  }
 }
