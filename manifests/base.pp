@@ -1,5 +1,5 @@
 class bash::base {
-    package{bash:
-        ensure => present,
-    }
+  package{bash:
+    ensure => present,
+  }
 }
