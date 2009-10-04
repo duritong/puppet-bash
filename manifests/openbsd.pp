@@ -12,5 +12,5 @@ class bash::openbsd inherits bash::base {
     ensure => present,
     require => Package[gettext],
   }
-  bash::deploy_profile{bash_profile_root: source => 'openbsd' }
+  bash::profile{bash_profile_root: source => 'openbsd' }
 }
