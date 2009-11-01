@@ -9,8 +9,8 @@ define bash::profile(
     source =>   [ 
       "puppet://$server/files/bash/${fqdn}/${source}",
       "puppet://$server/files/bash/${source}",
-      "puppet://$server/bash/module/${source}",
-      "puppet://$server/bash/${source}"
+      "puppet://$server/modules/bash/module/${source}",
+      "puppet://$server/modules/bash/${source}"
     ],
     owner => $uid, group => $gid, mode => 600;
   } 
