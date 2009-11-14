@@ -7,8 +7,8 @@ define bash::profile(
   file {$name:
     path => $destination,
     source =>   [ 
-      "puppet://$server/files/bash/${fqdn}/${source}",
-      "puppet://$server/files/bash/${source}",
+      "puppet://$server/modules/site-bash/${fqdn}/${source}",
+      "puppet://$server/modules/site-bash/${source}",
       "puppet://$server/modules/bash/module/${source}",
       "puppet://$server/modules/bash/${source}"
     ],
