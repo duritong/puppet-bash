@@ -1,2 +1,3 @@
+alias vi=vim
 export PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/`uname -r`/packages/`uname -m`
 export PS1="[\u@\h \W]\$ "
