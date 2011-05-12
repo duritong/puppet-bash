@@ -16,6 +16,11 @@ class bash {
   case $operatingsystem {
     openbsd: { include bash::openbsd }
     centos: { include bash::centos }
-    default: { include bash::base }
+    default: {
+      case $kernel {
+        linux: { include bash::linux }
+        default: { include bash::base }
+      }
+    }
   }
 }

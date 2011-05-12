@@ -1,7 +1,6 @@
-class bash::centos inherits bash::base {
-  package{ [ 'bash-completion', 'rootfiles']:
+class bash::centos inherits bash::linux {
+  package{'rootfiles':
     ensure => present,
   }
   bash::profile{bash_profile_root: source => 'centos' }
-  include bash::timeout
 }
