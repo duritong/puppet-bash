@@ -6,18 +6,18 @@
 # Marcel Härry haerry+puppet(at)puzzle.ch
 # Simon Josi josi+puppet(at)puzzle.ch
 #
-# This program is free software; you can redistribute 
-# it and/or modify it under the terms of the GNU 
-# General Public License version 3 as published by 
+# This program is free software; you can redistribute
+# it and/or modify it under the terms of the GNU
+# General Public License version 3 as published by
 # the Free Software Foundation.
 #
 
 class bash {
-  case $operatingsystem {
+  case $::operatingsystem {
     openbsd: { include bash::openbsd }
     centos: { include bash::centos }
     default: {
-      case $kernel {
+      case $::kernel {
         linux: { include bash::linux }
         default: { include bash::base }
       }
