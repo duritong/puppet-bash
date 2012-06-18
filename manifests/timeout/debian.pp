@@ -1,6 +1,6 @@
 class bash::timeout::debian {
-  line{'timeout':
-    file => '/etc/profile',
+  file_line{'timeout':
+    path => '/etc/profile',
     line => 'export TMOUT=900',
   }
 }
